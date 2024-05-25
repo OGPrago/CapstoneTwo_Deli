@@ -23,15 +23,51 @@ public class UserInterface {
 
             switch (homeCommand) {
                 case 1:
+                    orderScreen();
                     break;
                 case 2:
                     break;
                 default:
+                    AsciiArt.anya();
+                    System.out.println("Missinput?");
                     break;
             }
 
         } while (homeCommand != 2);
 
+    }
+
+    private static void orderScreen() {
+        byte orderCommand;
+
+        do {
+            System.out.println("Select an option:");
+            System.out.println("\t1) Add Sandwich");
+            System.out.println("\t2) Add Drink");
+            System.out.println("\t3) Add Chips");
+            System.out.println("\t4) Checkout");
+            System.out.println("\t5) Cancel Order");
+            orderCommand = scanner.nextByte();
+
+            switch (orderCommand) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    System.out.println("Canceling Order.");
+                    break;
+                default:
+                    AsciiArt.anya();
+                    System.out.println("Missinput?");
+                    break;
+            }
+
+        } while (orderCommand != 5);
     }
 
 }
