@@ -10,7 +10,7 @@ public class UserInterface {
         homeScreen();
     }
 
-    private static void homeScreen(){
+    private static void homeScreen() {
         byte homeCommand;
 
         do {
@@ -68,6 +68,22 @@ public class UserInterface {
             }
 
         } while (orderCommand != 5);
+    }
+
+    private static void processSandwich() {
+
+    }
+
+    private static void processDrink() {
+
+    }
+
+    private static void processChips() {
+
+    }
+
+    private static void processCheckout() {
+
     }
 
 }
