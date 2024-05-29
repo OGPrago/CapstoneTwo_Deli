@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class UserInterface {
 
     static Scanner scanner = new Scanner(System.in);
+    static Order order = new Order();
 
     public static void display() {
         homeScreen();
@@ -28,8 +29,7 @@ public class UserInterface {
                 case 2:
                     break;
                 default:
-                    AsciiArt.anya();
-                    System.out.println("Missinput?");
+                    missInput();
                     break;
             }
 
@@ -55,15 +55,17 @@ public class UserInterface {
                 case 2:
                     break;
                 case 3:
+                    processChips();
                     break;
                 case 4:
+                    order.checkOut();
                     break;
                 case 5:
                     System.out.println("Canceling Order.");
+                    order = new Order();
                     break;
                 default:
-                    AsciiArt.anya();
-                    System.out.println("Missinput?");
+                    missInput();
                     break;
             }
 
@@ -79,11 +81,49 @@ public class UserInterface {
     }
 
     private static void processChips() {
+        byte chipsCommand;
 
+        do {
+            System.out.println("Chips");
+            System.out.println("Select an option:");
+            System.out.println("\t1) Lays Classic (small) - $1.50");
+            System.out.println("\t2) Ruffles Classic (small) - $1.50");
+            System.out.println("\t3) Fritos Original (small) - $1.50");
+            System.out.println("\t4) Back to Order Menu");
+            chipsCommand = scanner.nextByte();
+
+            switch (chipsCommand) {
+                case 1:
+                    order.add(new Chips(1.50f, "Lays Classic", "small"));
+                    break;
+                case 2:
+                    order.add(new Chips(1.50f, "Ruffles Classic", "small"));
+                    break;
+                case 3:
+                    order.add(new Chips(1.50f, "Fritos Original", "small"));
+                    break;
+                case 4:
+                    break;
+                default:
+                    missInput();
+                    break;
+            }
+
+        } while (chipsCommand != 4);
     }
 
     private static void processCheckout() {
 
+    }
+
+    // Maybe
+    private static void orderFormat() {
+
+    }
+
+    private static void missInput() {
+        AsciiArt.anya();
+        System.out.println("Missinput?");
     }
 
 }

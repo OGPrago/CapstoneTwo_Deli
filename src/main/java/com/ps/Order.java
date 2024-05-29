@@ -6,11 +6,14 @@ public class Order {
 
     ArrayList<Product> products = new ArrayList<>();
 
-    private void add() {
-
+    public void add(Product product) {
+        products.add(product);
     }
 
-    private void checkOut() {
-
+    public void checkOut() {
+        System.out.println("Order Summary:");
+        for (Product product : products) {
+            System.out.println(product.getName() + " - $" + product.calcPrice());
+        }
     }
 }
