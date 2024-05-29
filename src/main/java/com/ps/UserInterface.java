@@ -53,6 +53,7 @@ public class UserInterface {
                 case 1:
                     break;
                 case 2:
+                    processDrink();
                     break;
                 case 3:
                     processChips();
@@ -77,7 +78,72 @@ public class UserInterface {
     }
 
     private static void processDrink() {
+        byte drinkCommand;
 
+        do {
+            System.out.println("Select a drink:");
+            System.out.println("\t1) Coke");
+            System.out.println("\t2) Sprite");
+            System.out.println("\t3) Water");
+            System.out.println("\t4) Espresso");
+            System.out.println("\t5) Scotch on the Rocks");
+            System.out.println("\t6) Back to Order Menu");
+            drinkCommand = scanner.nextByte();
+
+            if (drinkCommand >= 1 && drinkCommand <= 5) {
+                processDrinkSize(drinkCommand);
+            } else if (drinkCommand != 6) {
+                missInput();
+            }
+        } while (drinkCommand != 6);
+    }
+
+    private static void processDrinkSize(int drinkCommand) {
+        String drinkName = "";
+        switch (drinkCommand) {
+            case 1:
+                drinkName = "Coke";
+                break;
+            case 2:
+                drinkName = "Sprite";
+                break;
+            case 3:
+                drinkName = "Water";
+                break;
+            case 4:
+                drinkName = "Espresso";
+                break;
+            case 5:
+                drinkName = "Scotch on the Rocks";
+                break;
+        }
+
+        byte sizeCommand;
+        do {
+            System.out.println("Select a size:");
+            System.out.println("\t1) Small - $2.00");
+            System.out.println("\t2) Medium - $2.50");
+            System.out.println("\t3) Large - $3.00");
+            System.out.println("\t4) Back to Drink Menu");
+            sizeCommand = scanner.nextByte();
+
+            switch (sizeCommand) {
+                case 1:
+                    order.add(new Drink(2.00f, drinkName, "Small"));
+                    break;
+                case 2:
+                    order.add(new Drink(2.50f, drinkName, "Medium"));
+                    break;
+                case 3:
+                    order.add(new Drink(3.00f, drinkName, "Large"));
+                    break;
+                case 4:
+                    break;
+                default:
+                    missInput();
+                    break;
+            }
+        } while (sizeCommand != 4);
     }
 
     private static void processChips() {

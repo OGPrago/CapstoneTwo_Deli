@@ -1,24 +1,24 @@
 package com.ps;
 
-public class Drink extends  Product {
+public class Drink extends Product {
 
-    private String drinkSize;
     private String drinkName;
+    private String drinkSize;
 
-    public Drink(float price, String drinkSize, String drinkName) {
+    public Drink(float price, String drinkName, String drinkSize) {
         super(price);
-        this.drinkSize = drinkSize;
         this.drinkName = drinkName;
+        this.drinkSize = drinkSize;
     }
 
     @Override
     public String getName() {
-        return "";
+        return drinkName + " (" + drinkSize + ")";
     }
 
     @Override
     public float calcPrice() {
-        return 0;
+        return getPrice();
     }
 
     public String getDrinkSize() {
