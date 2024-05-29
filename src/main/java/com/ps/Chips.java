@@ -24,12 +24,6 @@ public class Chips extends Product {
         return getPrice();
     }
 
-    public void displayChips() {
-        System.out.println("Available Chips:");
-        for (String chip : chips) {
-            System.out.println(chip + " (" + chipsSize + ")");
-        }
-    }
 
     public String getChipsSize() {
         return chipsSize;

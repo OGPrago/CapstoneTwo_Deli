@@ -11,9 +11,12 @@ public class Order {
     }
 
     public void checkOut() {
-        System.out.println("Order Summary:");
+        System.out.println("Your Order:");
+        float totalPrice = 0f;
         for (Product product : products) {
             System.out.println(product.getName() + " - $" + product.calcPrice());
+            totalPrice += product.calcPrice();
         }
+        System.out.println("Total Price: $" + totalPrice);
     }
 }
