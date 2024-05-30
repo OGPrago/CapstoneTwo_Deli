@@ -17,6 +17,14 @@ public class Order {
             System.out.println(product.getName() + " - $" + product.calcPrice());
             totalPrice += product.calcPrice();
         }
-        System.out.println("Total Price: $" + totalPrice);
+        System.out.println("Total Price: $" + calculateTotalPrice());
+    }
+
+    public float calculateTotalPrice() {
+        float totalPrice = 0f;
+        for (Product product : products) {
+            totalPrice += product.calcPrice();
+        }
+        return totalPrice;
     }
 }

@@ -1,46 +1,107 @@
 package com.ps;
 
 public class Sandwich extends Product {
-
+    private String breadSize;
     private String breadType;
-    private byte breadSize;
     private String meatType;
+    private boolean extraMeat;
     private String cheeseType;
-    private String toppings;
+    private boolean extraCheese;
+    private String regularToppings;
     private String sauces;
-    private boolean extra;
-    private boolean isToasted;
+    private String sides;
 
     public Sandwich(
-            float price,
+            String breadSize,
             String breadType,
-            byte breadSize,
             String meatType,
+            boolean extraMeat,
             String cheeseType,
-            String toppings,
+            boolean extraCheese,
+            String regularToppings,
             String sauces,
-            boolean extra,
-            boolean isToasted
+            String sides
     ) {
-        super(price);
-        this.breadType = breadType;
+        super(0);
         this.breadSize = breadSize;
+        this.breadType = breadType;
         this.meatType = meatType;
+        this.extraMeat = extraMeat;
         this.cheeseType = cheeseType;
-        this.toppings = toppings;
+        this.extraCheese = extraCheese;
+        this.regularToppings = regularToppings;
         this.sauces = sauces;
-        this.extra = extra;
-        this.isToasted = isToasted;
+        this.sides = sides;
+        setPrice(calcPrice());
     }
 
     @Override
     public String getName() {
-        return "";
+        return breadSize + " " + breadType + " sandwich with " + meatType + " and " + cheeseType;
     }
 
     @Override
     public float calcPrice() {
-        return 0;
+        float basePrice = 0;
+        float meatPrice = 0;
+        float cheesePrice = 0;
+
+        switch (breadSize) {
+            case "4\"":
+                basePrice = 5.50f;
+                break;
+            case "8\"":
+                basePrice = 7.00f;
+                break;
+            case "12\"":
+                basePrice = 8.50f;
+                break;
+        }
+
+        if (extraMeat) {
+            if (breadSize.equals("4\"")) {
+                meatPrice += 0.50f;
+            } else if (breadSize.equals("8\"")) {
+                meatPrice += 1.00f;
+            } else if (breadSize.equals("12\"")) {
+                meatPrice += 1.50f;
+            }
+        }
+
+        if (extraCheese) {
+            if (breadSize.equals("4\"")) {
+                cheesePrice += 0.30f;
+            } else if (breadSize.equals("8\"")) {
+                cheesePrice += 0.60f;
+            } else if (breadSize.equals("12\"")) {
+                cheesePrice += 0.90f;
+            }
+        }
+
+        switch (breadSize) {
+            case "4\"":
+                meatPrice += 1.00f;
+                cheesePrice += 0.75f;
+                break;
+            case "8\"":
+                meatPrice += 2.00f;
+                cheesePrice += 1.50f;
+                break;
+            case "12\"":
+                meatPrice += 3.00f;
+                cheesePrice += 2.25f;
+                break;
+        }
+
+        return basePrice + meatPrice + cheesePrice;
+    }
+
+    public String getBreadSize() {
+        return breadSize;
+    }
+
+    public void setBreadSize(String breadSize) {
+        this.breadSize = breadSize;
     }
 
     public String getBreadType() {
@@ -51,20 +112,20 @@ public class Sandwich extends Product {
         this.breadType = breadType;
     }
 
-    public byte getBreadSize() {
-        return breadSize;
-    }
-
-    public void setBreadSize(byte breadSize) {
-        this.breadSize = breadSize;
-    }
-
     public String getMeatType() {
         return meatType;
     }
 
     public void setMeatType(String meatType) {
         this.meatType = meatType;
+    }
+
+    public boolean isExtraMeat() {
+        return extraMeat;
+    }
+
+    public void setExtraMeat(boolean extraMeat) {
+        this.extraMeat = extraMeat;
     }
 
     public String getCheeseType() {
@@ -75,12 +136,20 @@ public class Sandwich extends Product {
         this.cheeseType = cheeseType;
     }
 
-    public String getToppings() {
-        return toppings;
+    public boolean isExtraCheese() {
+        return extraCheese;
     }
 
-    public void setToppings(String toppings) {
-        this.toppings = toppings;
+    public void setExtraCheese(boolean extraCheese) {
+        this.extraCheese = extraCheese;
+    }
+
+    public String getRegularToppings() {
+        return regularToppings;
+    }
+
+    public void setRegularToppings(String regularToppings) {
+        this.regularToppings = regularToppings;
     }
 
     public String getSauces() {
@@ -91,19 +160,11 @@ public class Sandwich extends Product {
         this.sauces = sauces;
     }
 
-    public boolean isExtra() {
-        return extra;
+    public String getSides() {
+        return sides;
     }
 
-    public void setExtra(boolean extra) {
-        this.extra = extra;
-    }
-
-    public boolean isToasted() {
-        return isToasted;
-    }
-
-    public void setIsToasted(boolean toasted) {
-        isToasted = toasted;
+    public void setSides(String sides) {
+        this.sides = sides;
     }
 }

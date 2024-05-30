@@ -1,5 +1,6 @@
 package com.ps;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -12,7 +13,7 @@ public class UserInterface {
     }
 
     private static void homeScreen() {
-        byte homeCommand;
+        String homeCommand = "";
 
         do {
             AsciiArt.satriales();
@@ -20,25 +21,57 @@ public class UserInterface {
             System.out.println("Select an option:");
             System.out.println("\t1) New Order");
             System.out.println("\t2) Exit");
-            homeCommand = scanner.nextByte();
+            homeCommand = scanner.nextLine();
 
             switch (homeCommand) {
-                case 1:
+                case "1":
                     orderScreen();
                     break;
-                case 2:
+                case "2":
+                    System.out.println("Bye Bye!");
+                    break;
+                case "Gabagool99$": // WIP: Admin menu
+                    adminMenu();
                     break;
                 default:
                     missInput();
                     break;
             }
 
-        } while (homeCommand != 2);
+        } while (!homeCommand.equalsIgnoreCase("2"));
+
+    }
+
+    private static void adminMenu() {
+        byte adminCommand =0;
+
+        do {
+            System.out.println("Access Granted.");
+            System.out.println("\t1) Display Recipts");
+            System.out.println("\t2) Back");
+            try {
+                adminCommand = scanner.nextByte();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Misinput? ¬‿¬");
+                scanner.next();
+                continue;
+            }
+
+            switch (adminCommand) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                default:
+                    break;
+            }
+        } while (adminCommand != 2);
 
     }
 
     private static void orderScreen() {
-        byte orderCommand;
+        byte orderCommand = 0;
 
         do {
             System.out.println("Select an option:");
@@ -47,10 +80,18 @@ public class UserInterface {
             System.out.println("\t3) Add Chips");
             System.out.println("\t4) Checkout");
             System.out.println("\t5) Cancel Order");
-            orderCommand = scanner.nextByte();
+            try {
+                orderCommand = scanner.nextByte();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Misinput? ¬‿¬");
+                scanner.next();
+                continue;
+            }
 
             switch (orderCommand) {
                 case 1:
+                    processSandwich();
                     break;
                 case 2:
                     processDrink();
@@ -59,7 +100,7 @@ public class UserInterface {
                     processChips();
                     break;
                 case 4:
-                    order.checkOut();
+                    processCheckout();
                     break;
                 case 5:
                     System.out.println("Canceling Order.");
@@ -74,8 +115,178 @@ public class UserInterface {
     }
 
     private static void processSandwich() {
+        scanner.nextLine();
 
+        System.out.print("Select bread size (1: 4\", 2: 8\", 3: 12\"): ");
+        int breadSizeOption = scanner.nextInt();
+
+        System.out.print("Select bread type (1: white, 2: wheat, 3: rye, 4: wrap): ");
+        int breadTypeOption = scanner.nextInt();
+
+        System.out.print("Select meat type (1: steak, 2: ham, 3: salami, 4: roast beef, 5: chicken, 6: bacon, 7: gabagool): ");
+        int meatTypeOption = scanner.nextInt();
+
+        System.out.print("Do you want extra meat? (1: yes, 2: no): ");
+        int extraMeatOption = scanner.nextInt();
+        boolean extraMeat;
+        if (extraMeatOption == 1) {
+            extraMeat = true;
+        } else {
+            extraMeat = false;
+        }
+
+        System.out.print("Select cheese type (1: american, 2: provolone, 3: cheddar, 4: swiss): ");
+        int cheeseTypeOption = scanner.nextInt();
+
+        System.out.print("Do you want extra cheese? (1: yes, 2: no): ");
+        int extraCheeseOption = scanner.nextInt();
+        boolean extraCheese;
+        if (extraCheeseOption == 1) {
+            extraCheese = true;
+        } else {
+            extraCheese = false;
+        }
+
+        System.out.print("Select regular toppings (1: lettuce, 2: peppers, 3: onions, 4: tomatoes, 5: jalapenos, 6: cucumbers, 7: pickles, 8: guacamole, 9: mushrooms): ");
+        int regularToppingsOption = scanner.nextInt();
+
+        System.out.print("Select sauces (1: ketchup, 2: ranch, 3: thousand islands, 4: vinaigrette, 5: mayo, 6: mustard): ");
+        int saucesOption = scanner.nextInt();
+
+        System.out.print("Select sides (1: au jus, 2: sauce): ");
+        int sidesOption = scanner.nextInt();
+
+        String breadSize = getBreadSizeFromOption(breadSizeOption);
+        String breadType = getBreadTypeFromOption(breadTypeOption);
+        String meatType = getMeatTypeFromOption(meatTypeOption);
+        String cheeseType = getCheeseTypeFromOption(cheeseTypeOption);
+        String regularToppings = getRegularToppingsFromOption(regularToppingsOption);
+        String sauces = getSaucesFromOption(saucesOption);
+        String sides = getSidesFromOption(sidesOption);
+
+        Sandwich sandwich = new Sandwich(breadSize, breadType, meatType, extraMeat, cheeseType, extraCheese, regularToppings, sauces, sides);
+        order.add(sandwich);
     }
+
+    private static String getBreadSizeFromOption(int option) {
+        switch (option) {
+            case 1:
+                return "4\"";
+            case 2:
+                return "8\"";
+            case 3:
+                return "12\"";
+            default:
+                return "";
+        }
+    }
+
+    private static String getBreadTypeFromOption(int option) {
+        switch (option) {
+            case 1:
+                return "white";
+            case 2:
+                return "wheat";
+            case 3:
+                return "rye";
+            case 4:
+                return "wrap";
+            default:
+                return "";
+        }
+    }
+
+    private static String getMeatTypeFromOption(int option) {
+        switch (option) {
+            case 1:
+                return "steak";
+            case 2:
+                return "ham";
+            case 3:
+                return "salami";
+            case 4:
+                return "roast beef";
+            case 5:
+                return "chicken";
+            case 6:
+                return "bacon";
+            case 7:
+                return "gabagool";
+            default:
+                return "";
+        }
+    }
+
+    private static String getCheeseTypeFromOption(int option) {
+        switch (option) {
+            case 1:
+                return "american";
+            case 2:
+                return "provolone";
+            case 3:
+                return "cheddar";
+            case 4:
+                return "swiss";
+            default:
+                return "";
+        }
+    }
+
+    private static String getRegularToppingsFromOption(int option) {
+        switch (option) {
+            case 1:
+                return "lettuce";
+            case 2:
+                return "peppers";
+            case 3:
+                return "onions";
+            case 4:
+                return "tomatoes";
+            case 5:
+                return "jalapenos";
+            case 6:
+                return "cucumbers";
+            case 7:
+                return "pickles";
+            case 8:
+                return "guacamole";
+            case 9:
+                return "mushrooms";
+            default:
+                return "";
+        }
+    }
+
+    private static String getSaucesFromOption(int option) {
+        switch (option) {
+            case 1:
+                return "ketchup";
+            case 2:
+                return "ranch";
+            case 3:
+                return "thousand islands";
+            case 4:
+                return "vinaigrette";
+            case 5:
+                return "mayo";
+            case 6:
+                return "mustard";
+            default:
+                return "";
+        }
+    }
+
+    private static String getSidesFromOption(int option) {
+        switch (option) {
+            case 1:
+                return "au jus";
+            case 2:
+                return "sauce";
+            default:
+                return "";
+        }
+    }
+
 
     private static void processDrink() {
         byte drinkCommand;
@@ -179,11 +390,15 @@ public class UserInterface {
     }
 
     private static void processCheckout() {
-
-    }
-
-    // Maybe
-    private static void orderFormat() {
+        order.checkOut();
+        System.out.println("Would you like to checkout(y/n)?");
+        String checkoutCommand = scanner.nextLine();
+        if (checkoutCommand.equalsIgnoreCase("y")) {
+            FileManager.writeRecipt();
+            homeScreen();
+        } else {
+            homeScreen();
+        }
 
     }
 
@@ -191,5 +406,6 @@ public class UserInterface {
         AsciiArt.anya();
         System.out.println("Missinput?");
     }
+
 
 }
