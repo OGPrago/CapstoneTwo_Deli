@@ -43,7 +43,7 @@ public class UserInterface {
     }
 
     private static void adminMenu() {
-        byte adminCommand =0;
+        byte adminCommand = 0;
 
         do {
             System.out.println("Access Granted.");
