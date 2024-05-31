@@ -82,7 +82,7 @@ Hidden admin menu on Home Screen
 
 ![HomeScren().png](images/HomeScren().png)
 
-![AdminMenu().png](images/AdminMenu().png)![img.png](img.png)
+![AdminMenu().png](images/AdminMenu().png)
 </details>
 
 
